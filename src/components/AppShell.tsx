@@ -28,7 +28,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
       return;
     }
     dispatch(tokenFound());
-    dispatch(fetchProfile())
+    void dispatch(fetchProfile())
       .unwrap()
       .catch(async () => {
         await dispatch(logout());

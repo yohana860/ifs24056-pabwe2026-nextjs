@@ -31,8 +31,8 @@ export const fetchProfile = createAsyncThunk('session/profile', async () => {
 export const logout = createAsyncThunk('session/logout', async () => {
   try {
     await request('/auth/logout', { method: 'POST' });
-  } catch {
-    // token mungkin sudah kedaluwarsa; sesi lokal tetap dihapus.
+  } catch (error) {
+    console.error('Logout failed:', error);
   }
   clearToken();
 });
