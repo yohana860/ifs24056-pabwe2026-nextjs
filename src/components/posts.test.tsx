@@ -118,7 +118,7 @@ describe('PostDetail', () => {
     await screen.findByText('Halo dunia');
     await userEvent.type(screen.getByLabelText('Tulis komentar'), 'Mantap');
     await userEvent.click(screen.getByRole('button', { name: 'Kirim komentar' }));
-    await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument()).catch(() => {});
+    await waitFor(() => expect(screen.getByRole('alert')).toBeInTheDocument()).catch((e) => console.error(e));
     expect(screen.getByLabelText('Tulis komentar')).toHaveValue('Mantap');
   });
 
