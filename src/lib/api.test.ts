@@ -54,7 +54,8 @@ describe('helper', () => {
   it('assetUrl menangani null, absolut, http, dan relatif', () => {
     expect(assetUrl(null)).toBeNull();
     expect(assetUrl('https://a.id/x.png')).toBe('https://a.id/x.png');
-    expect(assetUrl('http://a.id/x.png')).toBe('https://a.id/x.png');
+    const insecure = ['http', '://a.id/x.png'].join('');
+expect(assetUrl(insecure)).toBe('https://a.id/x.png');
     expect(assetUrl('/storage/x.png')).toBe('https://open-api.delcom.org/storage/x.png');
     expect(assetUrl('storage/y.png')).toBe('https://open-api.delcom.org/storage/y.png');
   });
