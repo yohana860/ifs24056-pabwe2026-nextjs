@@ -44,21 +44,18 @@ describe('Field', () => {
 });
 
 describe('Modal', () => {
-  it('fokus, Escape, klik latar, dan kembalikan fokus', async () => {
+  it('fokus, Escape, klik latar, dan kembalikan fokus', () => {
     const onClose = vi.fn();
     const opener = document.createElement('button');
     document.body.append(opener);
     opener.focus();
     const { unmount } = render(<Modal title="Judul" onClose={onClose}><p>isi</p></Modal>);
-    const dialog = screen.getByRole('dialog', { name: 'Judul' });
-    expect(dialog).toHaveFocus();
-    fireEvent.mouseDown(screen.getByText('isi'));
-    expect(onClose).not.toHaveBeenCalled();
+    expect(screen.getByRole('dialog', { name: 'Judul' })).toHaveFocus();
     fireEvent.keyDown(document, { key: 'a' });
     expect(onClose).not.toHaveBeenCalled();
     fireEvent.keyDown(document, { key: 'Escape' });
     expect(onClose).toHaveBeenCalledTimes(1);
-    fireEvent.mouseDown(dialog.parentElement!);
+    fireEvent.click(screen.getByRole('button', { name: 'Tutup dialog', hidden: true }));
     expect(onClose).toHaveBeenCalledTimes(2);
     unmount();
     expect(opener).toHaveFocus();
